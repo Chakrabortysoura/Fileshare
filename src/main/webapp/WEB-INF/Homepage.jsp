@@ -65,11 +65,15 @@
             <div style="text-align: center; font-size: 35px; font-family: 'Source Code Pro', Serif; margin: 12px; display: flex; justify-content: center;"><u>Shared Files</u></div>
             <form action="/share/delete" method="get" style="display: flex; flex-direction: column; align-items: center;">
                 <% Enumeration list=(Enumeration) request.getAttribute("links");
-                   while(list.hasMoreElements()){
+                   if(list!=null){
+                    while(list.hasMoreElements()){
                 %>
                 <span class="links"><input type="checkbox"> <label><%=list.nextElement() %></label></span>
-                <%}%>
-                <input type="submit" value="DELETE" style="background-color: #fa3131; border: 2px solid #fa3131; color:white; font-size: 25px; margin-top: 10px">
+                <%      }%><input type="submit" value="DELETE" style="background-color: #fa3131; border: 2px solid #fa3131; color:white; font-size: 25px; margin-top: 10px">
+                <%
+                    }else{ %><span class="links"><input type="checkbox"> <label>"No Files Are Shared"</label></span>
+                <%   }%>
+
             </form>
         </div>
         <div id="management">
