@@ -67,8 +67,9 @@
                 <% Enumeration list=(Enumeration) request.getAttribute("links");
                    if(list!=null){
                     while(list.hasMoreElements()){
+                        String file_name= (String)list.nextElement();
                 %>
-                <span class="links"><input type="checkbox"> <label><%=list.nextElement() %></label></span>
+                <span class="links"><input type="checkbox" name="files" value="<%=file_name%>" > <label><%=file_name%></label></span>
                 <%      }%><input type="submit" value="DELETE" style="background-color: #fa3131; border: 2px solid #fa3131; color:white; font-size: 25px; margin-top: 10px">
                 <%
                     }else{ %><span class="links"><input type="checkbox"> <label>"No Files Are Shared"</label></span>

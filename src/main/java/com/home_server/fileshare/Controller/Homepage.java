@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 
@@ -40,9 +41,10 @@ public class Homepage{
     }
 
     @GetMapping("/share/delete")
-    public ModelAndView deleteFilefromShare(@RequestParam("name") String name, ModelAndView view){
-        linksService.deleteFileLink(name);
-        view.addObject("links",linksService.getAllFileLinks().keys());
+    public ModelAndView deleteFilefromShare(@RequestParam("files") String name, ModelAndView view){
+        Hashtable<String,String> links=linksService.deleteFileLink(name);
+
+        view.addObject("links",links.keys());
         view.setViewName("Homepage");
         return view;
     }
