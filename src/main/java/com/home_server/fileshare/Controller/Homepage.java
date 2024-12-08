@@ -1,25 +1,50 @@
 package com.home_server.fileshare.Controller;
 
+import com.home_server.fileshare.Service.FileShareLinksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Enumeration;
+import java.util.Iterator;
+
 
 @Controller
 public class Homepage{
+    @Autowired
+    private FileShareLinksService linksService;
 
     @GetMapping("/home")
-    public String homepage(){
+    public String homepage(ModelAndView view){
+        if(linksService.getAllFileLinks()!=null){
+            view.addObject("links",linksService.getAllFileLinks().keys());
+        }
+        view.setViewName("Homepage");
         return "Homepage";
     }
 
     @GetMapping("/share/add")
-    public void addFiletoShare(@RequestParam("filepath") String filepath, @RequestParam("name") String name){
+    public ModelAndView addFiletoShare(@RequestParam("filepath") String filepath, @RequestParam("name") String name, ModelAndView view){
+        if(linksService.addnewFileLink(name,filepath)){
+            System.out.println("Filelink added successfully.");
+        }
+        else{System.out.println("Filelink already exsits.");}
 
+        if(linksService.getAllFileLinks()!=null){
+            view.addObject("links",linksService.getAllFileLinks().keys());
+        }
+        view.setViewName("Homepage");
+        return view;
+    }
+
+    @GetMapping("/share/delete")
+    public ModelAndView deleteFilefromShare(@RequestParam("name") String name, ModelAndView view){
+        linksService.deleteFileLink(name);
+        view.addObject("links",linksService.getAllFileLinks().keys());
+        view.setViewName("Homepage");
+        return view;
     }
 
 }
