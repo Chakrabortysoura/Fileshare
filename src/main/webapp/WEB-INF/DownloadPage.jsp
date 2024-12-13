@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,22 +31,38 @@
         padding-top: 10px;
         padding-bottom: 10px;
         display: flex;
+        flex-direction:column;
         justify-content: center;
+        align-items:center
     }
     .download_links{
         border: 2px solid black;
         padding: 12px 19px;
+        margin: 10px;
+
     }
     .download_button{
         background-color: #7c7c8e;
         padding: 7px;
         border-radius: 4px;
     }
+    a {
+        text-decoration:none;
+        color:inherit;
+    }
 </style>
 <body>
     <div id="header">Download Links</div>
     <div id="contents">
-       <span class="download_links">Something content here  <span class="download_button">Download</span></span>
+       <% Enumeration list=(Enumeration) request.getAttribute("links");
+          if(list!=null){
+            while(list.hasMoreElements()){
+                String file_name= (String)list.nextElement();
+       %>
+       <span class="download_links"><%=file_name%> <span class="download_button"><a href="share/download/<%=file_name%>">Download</a></span></span>
+       <%   }
+          }else{%> <span class="download_links">No Download Links Available </span>
+       <%  }%>
     </div>
 </body>
 </html>

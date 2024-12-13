@@ -16,12 +16,12 @@ public class Homepage{
     private FileShareLinksService linksService;
 
     @GetMapping("/home")
-    public String homepage(ModelAndView view){
+    public ModelAndView homepage(ModelAndView view){
         if(linksService.getAllFileLinks()!=null){
             view.addObject("links",linksService.getAllFileLinks().keys());
         }
         view.setViewName("Homepage");
-        return "Homepage";
+        return view;
     }
 
     @GetMapping("/share/add")
@@ -39,8 +39,8 @@ public class Homepage{
     }
 
     @GetMapping("/share/delete")
-    public ModelAndView deleteFilefromShare(@RequestParam("files") String name, ModelAndView view){
-        Hashtable<String,String> links=linksService.deleteFileLink(name);
+    public ModelAndView deleteFilefromShare(@RequestParam("files") String[] name, ModelAndView view){
+        Hashtable<String,String> links=linksService.deleteMultipleFileLinks(name);
 
         view.addObject("links",links.keys());
         view.setViewName("Homepage");

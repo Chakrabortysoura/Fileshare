@@ -37,4 +37,11 @@ public class FileShareLinksService {
         sharedfiles.remove(name);
         return sharedfiles;
     }
+
+    public Hashtable<String, String> deleteMultipleFileLinks(String[] name){
+        for(String i:name){
+            sharedfiles.remove(i);
+        }
+        return sharedfiles;
+    }
 }
