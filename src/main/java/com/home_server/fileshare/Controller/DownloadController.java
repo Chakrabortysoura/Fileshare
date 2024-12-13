@@ -20,13 +20,9 @@ public class DownloadController{
     FileShareLinksService linksService;
 
     @GetMapping("share/download/{name}")
-    public ResponseEntity<Object> downloadFile(@PathVariable String name) throws IOException{
+    public ResponseEntity<Object> downloadFile(@PathVariable("name") String name) throws IOException{
         String filename=linksService.getFileLinks(name);
         File file=new File(filename);
-        if(!file.exists()){
-            ResponseEntity<Object> response=ResponseEntity.status(404).body("The File couldn't be at the desired location.\n");
-            return response;
-        }
         InputStreamResource fileresource=new InputStreamResource(new FileInputStream(file));
 
         HttpHeaders header=new HttpHeaders();

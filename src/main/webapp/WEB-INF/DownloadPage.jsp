@@ -59,7 +59,7 @@
             while(list.hasMoreElements()){
                 String file_name= (String)list.nextElement();
        %>
-       <span class="download_links"><%=file_name%> <span class="download_button"><a href="share/download/<%=file_name%>">Download</a></span></span>
+       <span class="download_links"><%=file_name%> <span class="download_button"><a href="<%=file_name%>">Download</a></span></span>
        <%   }
           }else{%> <span class="download_links">No Download Links Available </span>
        <%  }%>

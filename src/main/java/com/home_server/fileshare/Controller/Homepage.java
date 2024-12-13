@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.util.Hashtable;
 
 
@@ -26,11 +27,12 @@ public class Homepage{
 
     @GetMapping("/share/add")
     public ModelAndView addFiletoShare(@RequestParam("filepath") String filepath, @RequestParam("name") String name, ModelAndView view){
-        if(linksService.addnewFileLink(name,filepath)){
-            System.out.println("Filelink added successfully.");
+        if(new File(filepath).exists()){
+            if(linksService.addnewFileLink(name,filepath)){
+                System.out.println("Filelink added successfully.");
+            }
+            else{System.out.println("Filelink already exsits.");}
         }
-        else{System.out.println("Filelink already exsits.");}
-
         if(linksService.getAllFileLinks()!=null){
             view.addObject("links",linksService.getAllFileLinks().keys());
         }
