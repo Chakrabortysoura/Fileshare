@@ -22,6 +22,6 @@ jobs:
     - run: mvn -B package --file pom.xml
     - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
     - uses: actions/upload-artifact@v1
-       with:
-        name: Package
-        path: staging
+      with:
+       name: Package
+       path: staging
