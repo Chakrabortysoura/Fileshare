@@ -19,9 +19,11 @@ jobs:
         java-version: 21
 
     - name: Package the application with Maven
-    - run: mvn -B package --file pom.xml
-    - run: mkdir staging && cp target/*.jar staging
-    - uses: actions/upload-artifact@v4
+      run: mvn -B  package --file pom.xml
+    - run: mkdir export %% cp target/*.jar export
+    - name: Upload the packaged jar
+      uses: actions/upload-artifact@v4
       with:
         name: Package
-        path: staging
+        path: export
+
