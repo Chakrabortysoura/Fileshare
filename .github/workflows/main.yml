@@ -21,7 +21,8 @@ jobs:
     - name: Package the application with Maven
     - run: mvn -B package --file pom.xml
     - run: mkdir export && cp target/*jar-with-dependencies.jar export
-    - uses: actions/upload-artifact@v1
+    - name: Export the final build file.
+      uses: actions/upload-artifact@v1
       with:
         name: Export
         path: export
