@@ -20,8 +20,8 @@ jobs:
 
     - name: Package the application with Maven
     - run: mvn -B package --file pom.xml
-    - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-    - uses: actions/upload-artifact@v1
+    - run: mkdir staging && cp target/*.jar staging
+    - uses: actions/upload-artifact@v4
       with:
-       name: Package
-       path: staging
+        name: Package
+        path: staging
