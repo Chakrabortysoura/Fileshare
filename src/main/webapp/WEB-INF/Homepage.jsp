@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.net.*"%>
 <!Doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,8 +86,12 @@
                     <input type="submit" value="ADD" style="margin-top: 10px; display: inline; width: 80px; background-color: dodgerblue; color: white; border: 2px solid dodgerblue">
                 </form>
             </div>
-            <div class="management_options" style="border: 2px solid black">
-                some content here<br>
+            <div class="management_options">
+                <%
+                    String localhostaddr=InetAddress.getLocalHost().toString();
+                    localhostaddr=localhostaddr.substring(localhostaddr.indexOf("/")+1);
+                %>
+                <p style="font-family: 'Source Code Pro', Serif;">Download Link: <%=localhostaddr%>/share/download/links <br></p>
             </div>
         </div>
     </div>
