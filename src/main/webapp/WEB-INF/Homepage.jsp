@@ -91,7 +91,7 @@
                     String localhostaddr=InetAddress.getLocalHost().toString();
                     localhostaddr=localhostaddr.substring(localhostaddr.indexOf("/")+1);
                 %>
-                <p style="font-family: 'Source Code Pro', Serif;">Download Link: <%=localhostaddr%>/share/download/links <br></p>
+                <p style="font-family: 'Source Code Pro', Serif;">Download Link: <%=localhostaddr%>:8080/share/download/links <br></p>
             </div>
         </div>
     </div>
