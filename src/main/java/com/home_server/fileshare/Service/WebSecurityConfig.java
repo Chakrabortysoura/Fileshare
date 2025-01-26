@@ -51,11 +51,11 @@ public class WebSecurityConfig {
         }
         if(username==null || password==null){
             username="admin";
-            password="admin";
+            password="$2a$10$NfijqLDGqlVprqxlfYtb0uxreMS86xQOXOgiUjMNI/.rC7dze7K6.";
         }
         else if(username.equals("")|| password.equals("")){
             username="admin";
-            password="admin";
+            password="$2a$10$NfijqLDGqlVprqxlfYtb0uxreMS86xQOXOgiUjMNI/.rC7dze7K6.";
         }
         UserDetails user= User.builder()
                 .username(username)

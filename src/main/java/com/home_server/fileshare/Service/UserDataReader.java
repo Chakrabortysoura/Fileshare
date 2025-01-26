@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.*;
 
 public class UserDataReader {
-    private final File userdata=new File("/home/souranil/userdata.txt");
+    private final File userdata=new File("userdata.txt");
 
     public String getpassword() throws IOException{
             BufferedReader reader=new BufferedReader(new FileReader(userdata));
