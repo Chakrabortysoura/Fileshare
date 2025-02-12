@@ -16,8 +16,10 @@ This project aims to make a Spring Boot based application to make sharing files 
 - Easy To Share Links- The adminn user interface already contains the necessary link for the download link that should be shared with the other users. 
 
 ## User Interface
+- The main Admin Panel interface
 ![Screenshot_20250212_151617](https://github.com/user-attachments/assets/31730d9b-61bc-44fe-bf5b-459ac057020c)
 ![Screenshot_20250212_151841](https://github.com/user-attachments/assets/28af89a8-c27f-4438-8348-661a131714ac)
+- A simple quick share link to share all the files with anyone over the local network
 ![Screenshot_20250212_152001](https://github.com/user-attachments/assets/e30c5e82-82cd-4ad3-9ec9-460884156900)
 
 ## Future Roadmap
