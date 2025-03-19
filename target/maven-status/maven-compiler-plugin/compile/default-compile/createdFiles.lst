@@ -1,7 +1,0 @@
-com/home_server/fileshare/Service/Configuration.class
-com/home_server/fileshare/Controller/Homepage.class
-com/home_server/fileshare/Service/FileShareLinksService.class
-com/home_server/fileshare/Service/WebSecurityConfig.class
-com/home_server/fileshare/Controller/DownloadController.class
-com/home_server/fileshare/Service/UserDataReader.class
-com/home_server/fileshare/FileshareApplication.class
