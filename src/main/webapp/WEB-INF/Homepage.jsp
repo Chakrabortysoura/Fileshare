@@ -64,7 +64,7 @@
     <div id="content">
         <div id="download_links" style="">
             <div style="text-align: center; font-size: 35px; font-family: 'Source Code Pro', Serif; margin: 12px; display: flex; justify-content: center;"><u>Shared Files</u></div>
-            <form action="/share/delete" method="get" style="display: flex; flex-direction: column; align-items: center;">
+            <form action="/share/delete" method="POST" style="display: flex; flex-direction: column; align-items: center;">
                 <% Enumeration list=(Enumeration) request.getAttribute("links");
                    if(list!=null){
                     while(list.hasMoreElements()){
@@ -80,7 +80,7 @@
         </div>
         <div id="management">
             <div class="management_options">
-                <form action="/share/add" method="get" style="display: flex; flex-direction: column; justify-content: center;">
+                <form action="/share/add" method="POST" style="display: flex; flex-direction: column; justify-content: center;">
                     <input type="text" name="filepath" id="filepath" placeholder="Enter the Path of the File that you want to share" style="display: inline; margin-right: 10px; margin-top: 10px; width:21vw; font-family: 'Source Code Pro', serif;">
                     <input type="text" name="name" id="name" placeholder="Name of Shared File to be Displayed" style="display: inline; margin-right: 10px; margin-top: 10px; width:15vw; font-family: 'Source Code Pro', serif;">
                     <input type="submit" value="ADD" style="margin-top: 10px; display: inline; width: 80px; background-color: dodgerblue; color: white; border: 2px solid dodgerblue">
@@ -91,7 +91,7 @@
                     String localhostaddr=InetAddress.getLocalHost().toString();
                     localhostaddr=localhostaddr.substring(localhostaddr.indexOf("/")+1);
                 %>
-                <p style="font-family: 'Source Code Pro', Serif;">Download Link: <%=localhostaddr%>:8080/share/download/links <br></p>
+                <p style="font-family: 'Source Code Pro', Serif;">Download Link: <%=localhostaddr%>:8080/download/links <br></p>
             </div>
         </div>
     </div>

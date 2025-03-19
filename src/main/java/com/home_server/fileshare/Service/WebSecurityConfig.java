@@ -2,10 +2,9 @@ package com.home_server.fileshare.Service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,32 +27,29 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityconfig(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests((requests)->requests
-                        .requestMatchers("/share/download/**").permitAll() // making all the download pages to be freely accessible
-                        .anyRequest().authenticated()
-                )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
-                )
-                .logout(LogoutConfigurer::permitAll);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http    .csrf().disable()
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/home").authenticated()
+                        .requestMatchers("/share/**").authenticated()
+                        .anyRequest().permitAll()
+        );
+        http.httpBasic(Customizer.withDefaults());
+        http.formLogin(Customizer.withDefaults());
         return http.build();
     }
 
     @Bean
     public UserDetailsService usercredentials(){
-        String username=new String();
-        String password=new String();
+        String username= "";
+        String password= "";
         try{
             username=dataReader.getusername();
             password=dataReader.getpassword();
         }catch (IOException e){
             System.out.println("There was some error accessing the file");
         }
-        if(username==null || password==null){
-            username="admin";
-            password="$2a$10$NfijqLDGqlVprqxlfYtb0uxreMS86xQOXOgiUjMNI/.rC7dze7K6.";
-        }
-        else if(username.equals("")|| password.equals("")){
+        if(username.isEmpty() || password.isEmpty()){
             username="admin";
             password="$2a$10$NfijqLDGqlVprqxlfYtb0uxreMS86xQOXOgiUjMNI/.rC7dze7K6.";
         }

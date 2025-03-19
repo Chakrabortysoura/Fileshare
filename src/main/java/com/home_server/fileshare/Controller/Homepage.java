@@ -3,8 +3,8 @@ package com.home_server.fileshare.Controller;
 import com.home_server.fileshare.Service.FileShareLinksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,6 +17,7 @@ import java.util.Hashtable;
 public class Homepage{
     @Autowired
     private FileShareLinksService linksService;
+
 
     @GetMapping("/home")
     public ModelAndView homepage(ModelAndView view){
@@ -33,14 +34,19 @@ public class Homepage{
     }
 
 
-    @GetMapping("/share/add")
+    @PostMapping("/share/add")
     public ModelAndView addFiletoShare(@RequestParam("filepath") String filepath, @RequestParam("name") String name, ModelAndView view){
+        System.out.println("ADD controller is executed");
         if(new File(filepath).exists()){
             if(linksService.addnewFileLink(name,filepath)){
                 System.out.println("Filelink added successfully.");
             }
             else{System.out.println("Filelink already exsits.");}
         }
+        else{
+            System.out.println("Filelink doesn't exist");
+        }
+
         if(linksService.getAllFileLinks()!=null){
             view.addObject("links",linksService.getAllFileLinks().keys());
         }
@@ -48,7 +54,7 @@ public class Homepage{
         return view;
     }
 
-    @GetMapping("/share/delete")
+    @PostMapping("/share/delete")
     public ModelAndView deleteFilefromShare(@RequestParam("files") String[] name, ModelAndView view){
         Hashtable<String,String> links=linksService.deleteMultipleFileLinks(name);
 

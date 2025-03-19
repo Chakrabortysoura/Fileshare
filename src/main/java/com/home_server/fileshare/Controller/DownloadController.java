@@ -7,9 +7,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 
@@ -18,27 +18,23 @@ public class DownloadController{
     @Autowired
     FileShareLinksService linksService;
 
-    @GetMapping("share/download/{name}")
+    @GetMapping("/download/{name}")
     public ResponseEntity<Object> downloadFile(@PathVariable("name") String name) throws IOException{
-        String filename=linksService.getFileLinks(name);
-        File file=new File(filename);
+        File file=new File(linksService.getFileLinks(name));
         InputStreamResource fileresource=new InputStreamResource(new FileInputStream(file));
 
         HttpHeaders header=new HttpHeaders();
         header.set("Content-Disposition", "attachment; filename="+file.getName());
 
-        ResponseEntity<Object>  response=ResponseEntity.status(200).headers(header)
+        return ResponseEntity.status(200).headers(header)
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/txt")).body(fileresource);
-
-        return response;
     }
-    @GetMapping("share/download/links")
-    public ModelAndView downloadLinksPage(ModelAndView view){
+    @GetMapping("/download/links")
+    public String downloadLinksPage(Model model){
         if(linksService.getAllFileLinks()!=null){
-            view.addObject("links",linksService.getAllFileLinks().keys());
+            model.addAttribute("links",linksService.getAllFileLinks().keys());
         }
-        view.setViewName("DownloadPage");
-        return view;
+        return "DownloadPage";
     }
 }
