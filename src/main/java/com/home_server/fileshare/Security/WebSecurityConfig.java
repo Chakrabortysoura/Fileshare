@@ -1,7 +1,11 @@
-package com.home_server.fileshare.Service;
+package com.home_server.fileshare.Security;
 
+import com.home_server.fileshare.Service.UserConfigurationHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,10 +23,11 @@ import java.io.IOException;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    UserDataReader dataReader=new UserDataReader();
+    @Autowired
+    UserConfigurationHelper dataReader;
 
     @Bean
-    public PasswordEncoder custompasswordEncoder(){
+    public PasswordEncoder customPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -49,9 +54,9 @@ public class WebSecurityConfig {
         }catch (IOException e){
             System.out.println("There was some error accessing the file");
         }
-        if(username.isEmpty() || password.isEmpty()){
+        if(username==null || password==null){
             username="admin";
-            password="$2a$10$NfijqLDGqlVprqxlfYtb0uxreMS86xQOXOgiUjMNI/.rC7dze7K6.";
+            password=customPasswordEncoder().encode("admin");
         }
         UserDetails user= User.builder()
                 .username(username)
